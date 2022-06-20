@@ -1,2 +1,2 @@
-export { ErrorBoundary } from "./errorBoundary";
-export { LazyLoader } from "./lazyLoader";
+export { ErrorBoundary } from './errorBoundary';
+export { LazyLoader } from './lazyLoader';

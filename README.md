@@ -16,32 +16,32 @@ npm init -y
 
 ```json
 {
-  "name": "tsx-and-testing",
-  "version": "1.0.0",
-  "description": "A template to bootstrap React Typescript projects with testing set up",
-  "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AlexJeffcott/tsx-and-testing.git"
-  },
-  "keywords": ["React", "Typescript", "tsx", "Vite", "Vitest", "Cypress"],
-  "author": "Alex Jeffcott",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/AlexJeffcott/tsx-and-testing/issues"
-  },
-  "homepage": "https://github.com/AlexJeffcott/tsx-and-testing#readme",
-  "engines": {
-    "node": ">=16.X.X",
-    "npm": ">=8.X.X",
-    "yarn": "USE_NPM_PLEASE"
-  },
-  "scripts": {
-    "start": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "format": "prettier --write ."
-  }
+	"name": "tsx-and-testing",
+	"version": "1.0.0",
+	"description": "A template to bootstrap React Typescript projects with testing set up",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/AlexJeffcott/tsx-and-testing.git"
+	},
+	"keywords": ["React", "Typescript", "tsx", "Vite", "Vitest", "Cypress"],
+	"author": "Alex Jeffcott",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/AlexJeffcott/tsx-and-testing/issues"
+	},
+	"homepage": "https://github.com/AlexJeffcott/tsx-and-testing#readme",
+	"engines": {
+		"node": ">=16.X.X",
+		"npm": ">=8.X.X",
+		"yarn": "USE_NPM_PLEASE"
+	},
+	"scripts": {
+		"start": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"prettier": "prettier --write ."
+	}
 }
 ```
 
@@ -91,6 +91,54 @@ printf "import React from 'react';\n\nexport const LazyLoader = () => <div>loadi
 
 printf "import React, { Component, ErrorInfo, ReactNode } from 'react';\n\ninterface Props {children: ReactNode;}\n\ninterface State {hasError: boolean;}\n\nclass ErrorBoundary extends Component<Props, State> {public state: State = {hasError: false};\n\npublic static getDerivedStateFromError(_: Error): State {console.error(_);return { hasError: true };}\n\npublic componentDidCatch(error: Error, errorInfo: ErrorInfo) {console.error('Uncaught error:', error, errorInfo);}\n\npublic render() {if (this.state.hasError) {return <h1>Sorry.. there was an error</h1>;}\n\nreturn this.props.children;}}\n\nexport { ErrorBoundary };" > src/components/errorBoundary/index.tsx
 
-npm run format
+npm run prettier
 npm start
 ```
+
+7. Install static analysis deps
+
+```shell
+npm i -D eslint eslint-config-prettier eslint-plugin-react eslint-plugin-simple-import-sort @typescript-eslint/eslint-plugin  npm-check-updates jscpd husky @types/prettier @commitlint/config-conventional @types/eslint
+
+printf 'import type { UserConfig } from "@commitlint/types";\n\nconst Configuration: UserConfig = {extends: ["@commitlint/config-conventional"],rules: {"type-enum": [2, "always", ["[RELEASE]", "docs", "fix", "feat", "wip"]],},};\n\nmodule.exports = Configuration;' > commitlint.config.cjs
+
+printf 'engine-strict=true' > .npmrc
+
+printf '{"useTabs": true,"singleQuote": true,"trailingComma": "none","printWidth": 100}' > .prettierrc
+
+printf '{"threshold": 10,"reporters": ["html", "console"],"format": "typescript","include": ["src/**/*"],"ignore": ["**/__tests__"],"absolute": false,"gitignore": true}' > .jscpd.json
+
+printf "module.exports = {root: true,parser: '@typescript-eslint/parser',parserOptions: {ecmaVersion: 2021,sourceType: 'module',tsconfigRootDir: __dirname,project: ['./tsconfig.json']},plugins: ['simple-import-sort'],env: {es2020: true,node: true},extends: ['eslint:recommended','plugin:@typescript-eslint/recommended','plugin:@typescript-eslint/recommended-requiring-type-checking','prettier'],rules: {'@typescript-eslint/no-explicit-any': 0,'@typescript-eslint/ban-ts-comment': 0}};" > .eslintrc.cjs
+
+printf "node_modules\ndist\nvite.config.ts" > .eslintignore
+
+npm set-script update "npm-check-updates -u"
+npm set-script types "tsc"
+npm set-script eslint "eslint --fix ."
+npm set-script prettier "prettier --ignore-path .gitignore --write ."
+npm set-script jscpd "jscpd"
+npm set-script lint "npm run types && npm run prettier && npm run eslint && npm run jscpd"
+npm set-script build "npm run lint && vite build"
+npm run lint
+
+npm set-script prepare "husky install"
+npm run prepare
+npx husky add .husky/pre-commit "npm run lint"
+git add .husky/pre-commit
+
+cat <<EEE > .husky/commit-msg
+#!/bin/sh
+. "\$(dirname "\$0")/_/husky.sh"
+npx --no -- commitlint --edit "\${1}"
+EEE
+```
+
+8. Configure testing deps
+
+9. Install testing deps
+
+```shell
+npm i -D vitest @testing-library/react
+```
+
+10. Configure testing deps

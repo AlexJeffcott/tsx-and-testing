@@ -1,5 +1,5 @@
-import "./index.css";
+import './index.css';
 
 export default function Landing() {
-  return <h1>Hello TSX and Testing!</h1>;
+	return <h1>Hello TSX and Testing!</h1>;
 }
