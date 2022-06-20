@@ -1,0 +1,48 @@
+{
+  "name": "tsx-and-testing",
+  "version": "1.0.0",
+  "description": "A template to bootstrap React Typescript projects with testing set up",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexJeffcott/tsx-and-testing.git"
+  },
+  "keywords": [
+    "React",
+    "Typescript",
+    "tsx",
+    "Vite",
+    "Vitest",
+    "Cypress"
+  ],
+  "author": "Alex Jeffcott",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexJeffcott/tsx-and-testing/issues"
+  },
+  "homepage": "https://github.com/AlexJeffcott/tsx-and-testing#readme",
+  "engines": {
+    "node": ">=16.X.X",
+    "npm": ">=8.X.X",
+    "yarn": "USE_NPM_PLEASE"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "@vitejs/plugin-react": "^1.3.2",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4",
+    "vite": "^2.9.12"
+  }
+}
