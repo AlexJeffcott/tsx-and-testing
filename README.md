@@ -135,6 +135,8 @@ npx --no -- commitlint --edit "\${1}"
 EEE
 
 printf "logs\n\n*.log\nnpm-debug.log*\nreport.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json\nreport\ncoverage\n*.lcov\n.nyc_output\nnode_modules/\n*.tsbuildinfo\n.npm\n.eslintcache\n.env\n.env.test\ndist\n*.css.d.ts" > .gitignore
+
+printf "logs\n\n*.log\nnpm-debug.log*\nreport.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json\nreport\ncoverage\n*.lcov\n.nyc_output\nnode_modules/\n*.tsbuildinfo\n.npm\n.eslintcache\n.env\n.env.test\ndist\nvite.config.ts" > .eslintignore
 ```
 
 8. Configure testing deps
