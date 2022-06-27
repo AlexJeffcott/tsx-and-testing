@@ -49,13 +49,13 @@ npm init -y
 
 ```shell
 npm i react react-dom react-router-dom
-npm i -D @types/react @types/react-dom @vitejs/plugin-react prettier typescript vite
+npm i -D @types/react @types/react-dom @vitejs/plugin-react @types/node prettier typescript vite typed-css-modules
 ```
 
 6. Configure non-testing deps
 
 ```shell
-printf "import { defineConfig } from 'vite';import react from '@vitejs/plugin-react';\n\nexport default defineConfig({plugins: [react()]})" > vite.config.ts
+printf "import { defineConfig } from 'vite';import react from '@vitejs/plugin-react';\n\nexport default defineConfig({plugins:[react()],css:{modules:{localsConvention:'camelCaseOnly'}}})" > vite.config.ts
 
 printf '{"compilerOptions": {"target": "ESNext","useDefineForClassFields": true,"lib": ["DOM", "DOM.Iterable", "ESNext"],"allowJs": false,"skipLibCheck": true,"esModuleInterop": false,"allowSyntheticDefaultImports": true,"strict": true,"forceConsistentCasingInFileNames": true,"module": "ESNext","moduleResolution": "Node","resolveJsonModule": true,"isolatedModules": true,"noEmit": true,"jsx": "react-jsx"},"include": ["src"],"references": [{ "path": "./tsconfig.node.json" }]}' > tsconfig.json
 
@@ -90,6 +90,8 @@ printf "export { ErrorBoundary } from './errorBoundary';export { LazyLoader } fr
 printf "import React from 'react';\n\nexport const LazyLoader = () => <div>loading</div>;" > src/components/lazyLoader/index.tsx
 
 printf "import React, { Component, ErrorInfo, ReactNode } from 'react';\n\ninterface Props {children: ReactNode;}\n\ninterface State {hasError: boolean;}\n\nclass ErrorBoundary extends Component<Props, State> {public state: State = {hasError: false};\n\npublic static getDerivedStateFromError(_: Error): State {console.error(_);return { hasError: true };}\n\npublic componentDidCatch(error: Error, errorInfo: ErrorInfo) {console.error('Uncaught error:', error, errorInfo);}\n\npublic render() {if (this.state.hasError) {return <h1>Sorry.. there was an error</h1>;}\n\nreturn this.props.children;}}\n\nexport { ErrorBoundary };" > src/components/errorBoundary/index.tsx
+
+npm set-script clean "rm -rf node_modules/.vite"
 
 npm run prettier
 npm start
