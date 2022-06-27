@@ -112,7 +112,9 @@ printf '{"threshold": 10,"reporters": ["html", "console"],"format": "typescript"
 
 printf "module.exports = {root: true,parser: '@typescript-eslint/parser',parserOptions: {ecmaVersion: 2021,sourceType: 'module',tsconfigRootDir: __dirname,project: ['./tsconfig.json']},plugins: ['simple-import-sort'],env: {es2020: true,node: true},extends: ['eslint:recommended','plugin:@typescript-eslint/recommended','plugin:@typescript-eslint/recommended-requiring-type-checking','prettier'],rules: {'@typescript-eslint/no-explicit-any': 0,'@typescript-eslint/ban-ts-comment': 0}};" > .eslintrc.cjs
 
-printf "node_modules\ndist\nvite.config.ts" > .eslintignore
+printf "logs\n\n*.log\nnpm-debug.log*\nreport.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json\nreport\ncoverage\n*.lcov\n.nyc_output\nnode_modules/\n*.tsbuildinfo\n.npm\n.eslintcache\n.env\n.env.test\ndist\nvite.config.ts" > .eslintignore
+
+printf "logs\n\n*.log\nnpm-debug.log*\nreport.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json\nreport\ncoverage\n*.lcov\n.nyc_output\nnode_modules/\n*.tsbuildinfo\n.npm\n.eslintcache\n.env\n.env.test\ndist\n*.css.d.ts" > .gitignore
 
 npm set-script update "npm-check-updates -u"
 npm set-script types "tsc"
@@ -133,10 +135,6 @@ cat <<EEE > .husky/commit-msg
 . "\$(dirname "\$0")/_/husky.sh"
 npx --no -- commitlint --edit "\${1}"
 EEE
-
-printf "logs\n\n*.log\nnpm-debug.log*\nreport.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json\nreport\ncoverage\n*.lcov\n.nyc_output\nnode_modules/\n*.tsbuildinfo\n.npm\n.eslintcache\n.env\n.env.test\ndist\n*.css.d.ts" > .gitignore
-
-printf "logs\n\n*.log\nnpm-debug.log*\nreport.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json\nreport\ncoverage\n*.lcov\n.nyc_output\nnode_modules/\n*.tsbuildinfo\n.npm\n.eslintcache\n.env\n.env.test\ndist\nvite.config.ts" > .eslintignore
 ```
 
 8. Configure testing deps
