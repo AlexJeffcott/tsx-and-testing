@@ -116,6 +116,10 @@ printf "logs\n\n*.log\nnpm-debug.log*\nreport.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json\n
 
 printf "logs\n\n*.log\nnpm-debug.log*\nreport.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json\nreport\ncoverage\n*.lcov\n.nyc_output\nnode_modules/\n*.tsbuildinfo\n.npm\n.eslintcache\n.env\n.env.test\ndist\n*.css.d.ts" > .gitignore
 
+printf '/// <reference types="vite/client" />\n\ninterface ImportMetaEnv { readonly VITE_GOOGLE_API_KEY: string }\n\ninterface ImportMeta { readonly env: ImportMetaEnv }' > src/env.d.ts
+
+printf 'VITE_GOOGLE_API_KEY=abc213' > .env
+
 npm set-script update "npm-check-updates -u"
 npm set-script types "tsc"
 npm set-script eslint "eslint --fix ."
